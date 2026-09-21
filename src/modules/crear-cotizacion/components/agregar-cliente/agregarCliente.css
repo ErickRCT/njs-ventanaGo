@@ -1,0 +1,49 @@
+/* Contenedor principal */
+.step1-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px; /* Similar a gap: 2 de MUI */
+    margin-top: 16px;
+  }
+  
+  /* Estilo de cada caja */
+  .box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%; /* Ancho completo por defecto */
+    max-width: 45%; /* Hasta 45% en pantallas más grandes */
+    height: 70px;
+    margin: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  /* Efectos hover */
+  .box:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Estilo del icono */
+  .icon {
+    font-size: 40px;
+    margin-bottom: 8px;
+  }
+  
+  /* Texto dentro de cada caja */
+  .box-text {
+    font-size: 1.25rem; /* Tamaño similar a variant="h6" */
+  }
+  
+  /* Ajustes responsivos */
+  @media (max-width: 768px) {
+    .box {
+      max-width: 100%; /* Ancho completo en pantallas pequeñas */
+    }
+  }
+  

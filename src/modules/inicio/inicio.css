@@ -1,0 +1,39 @@
+.inicio-title {
+    text-align: center;
+    color: #2196F3; /* Color azul para el título */
+}
+
+.inicio-container .inicio-title {
+    color: #2196F3; /* Color azul para el título */
+}
+
+.inicio-subtitle {
+    text-align: center;
+    color: #757575; /* Texto gris para el subtítulo */
+}
+
+.card-container {
+    cursor: pointer;
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo semi-transparente */
+    padding: 16px;
+}
+
+.card-container:hover {
+    transform: scale(1.05);
+    box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.3);
+    background-color: rgba(255, 255, 255, 0.9); /* Fondo un poco más opaco al hover */
+}
+
+.card-title {
+    margin-top: 16px;
+    color: #212121; /* Texto oscuro para mejor contraste */
+}
+
+.card-description {
+    margin-top: 8px;
+    color: #757575; /* Texto gris para mejor contraste */
+}
