@@ -5,13 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="91982ce9-b7b0-428f-87d8-308e6eafc2cf" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/EncabezadoPagina.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/EncabezadoPagina.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MenuLateral.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MenuLateral.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/models/ventana.glb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/models/ventana.usdz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modules/realidad-aumentada/RealidadAumentada.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/realidad-aumentada/RealidadAumentada.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vite.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/vite.config.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -73,7 +72,7 @@
       <option name="presentableId" value="Default" />
       <updated>1790021946127</updated>
       <workItem from="1790021947567" duration="333000" />
-      <workItem from="1790031054443" duration="3467000" />
+      <workItem from="1790031054443" duration="5087000" />
     </task>
     <servers />
   </component>

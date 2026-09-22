@@ -3,6 +3,7 @@ import { Alert, Box, Button, Card, CardContent, Typography } from "@mui/material
 import { ViewInAr } from "@mui/icons-material";
 import "@google/model-viewer";
 import type { ModelViewerElement } from "@google/model-viewer";
+import type { ModelosVentana } from "./ventana3d.ts";
 
 declare global {
     // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -24,26 +25,58 @@ declare global {
     }
 }
 
-const MODELO_VENTANA = `${import.meta.env.BASE_URL}models/ventana.glb`;
-// Android y Safari usan el .glb; iOS con navegadores que no son Safari (Chrome, Edge, Firefox) exige un .usdz propio.
-const MODELO_VENTANA_IOS = `${import.meta.env.BASE_URL}models/ventana.usdz`;
-
 const mensajeNoSoportado = () => {
     const ua = navigator.userAgent;
     if (/iPhone|iPad|iPod/.test(ua)) {
         return "No se pudo abrir la realidad aumentada. Abre esta página directamente en Safari, no dentro de otra aplicación.";
     }
     if (/android/i.test(ua)) {
-        return "No se pudo abrir la realidad aumentada. Abre esta página en Chrome; Firefox no la admite.";
+        return window.isSecureContext
+            ? "No se pudo abrir la realidad aumentada. Abre esta página en Chrome y comprueba que tu teléfono sea compatible con ARCore."
+            : "En Android la realidad aumentada solo funciona si la página se abre por HTTPS.";
     }
     return "Este dispositivo no permite realidad aumentada. Abre esta página desde un teléfono compatible.";
 };
 
 export const RealidadAumentada = () => {
     const viewerRef = useRef<ModelViewerElement | null>(null);
+    const [modelos, setModelos] = useState<ModelosVentana | null>(null);
     const [modeloCargado, setModeloCargado] = useState(false);
+    const [errorModelo, setErrorModelo] = useState(false);
+    const [arGuiadaLista, setArGuiadaLista] = useState(false);
     const [noSoportado, setNoSoportado] = useState(false);
     const [errorAr, setErrorAr] = useState(false);
+
+    // Genera la ventana 3D en el navegador; three.js se descarga aparte, solo al entrar a este módulo.
+    useEffect(() => {
+        let cancelado = false;
+        let generados: ModelosVentana | null = null;
+
+        import("./ventana3d.ts")
+            .then((modulo) => modulo.exportarModelos())
+            .then((resultado) => {
+                if (cancelado) return resultado.liberar();
+                generados = resultado;
+                setModelos(resultado);
+            })
+            .catch((error) => {
+                console.error("Error al generar el modelo de la ventana:", error);
+                if (!cancelado) setErrorModelo(true);
+            });
+
+        return () => {
+            cancelado = true;
+            generados?.liberar();
+        };
+    }, []);
+
+    // WebXR (Android/Chrome con HTTPS y ARCore) da la experiencia guiada; sin él se usa Quick Look en iPhone.
+    useEffect(() => {
+        navigator.xr
+            ?.isSessionSupported("immersive-ar")
+            .then(setArGuiadaLista)
+            .catch(() => setArGuiadaLista(false));
+    }, []);
 
     useEffect(() => {
         const viewer = viewerRef.current;
@@ -64,15 +97,27 @@ export const RealidadAumentada = () => {
         };
     }, []);
 
-    const handleActivarAr = () => {
+    const handleActivarAr = async () => {
         const viewer = viewerRef.current;
         setErrorAr(false);
+        setNoSoportado(false);
+
+        if (arGuiadaLista) {
+            try {
+                const { iniciarArGuiada } = await import("./arGuiada.ts");
+                await iniciarArGuiada();
+            } catch (error) {
+                console.error("Error al iniciar la AR guiada:", error);
+                setErrorAr(true);
+            }
+            return;
+        }
+
         // canActivateAR se consulta al pulsar, cuando model-viewer ya eligió el modo de AR del dispositivo.
         if (!viewer?.canActivateAR) {
             setNoSoportado(true);
             return;
         }
-        setNoSoportado(false);
         viewer.activateAR();
     };
 
@@ -87,7 +132,7 @@ export const RealidadAumentada = () => {
                         onClick={handleActivarAr}
                         disabled={!modeloCargado}
                     >
-                        Ver ventana en realidad aumentada
+                        {arGuiadaLista ? "AR guiada · colocar en la pared" : "Ver ventana en realidad aumentada"}
                     </Button>
 
                     {noSoportado && (
@@ -108,9 +153,16 @@ export const RealidadAumentada = () => {
                         </Alert>
                     )}
 
+                    {errorModelo && (
+                        <Alert severity="error" sx={{ width: "100%", maxWidth: 600 }}>
+                            No se pudo preparar el modelo 3D de la ventana. Recarga la página.
+                        </Alert>
+                    )}
+
                     <Typography variant="body2" color="text.secondary" align="center" sx={{ maxWidth: 600 }}>
-                        Al presionar el botón se abrirá la cámara del teléfono. Apunta hacia una pared y coloca la ventana
-                        a escala real para ver cómo se vería instalada.
+                        Apunta a una pared con buena luz y mueve el teléfono lentamente. Confirma dónde irá la ventana:
+                        se coloca a escala real (1,2 × 1,0 m) y queda fija en la pared.
+                        En iPhone, abre esta página en Safari.
                     </Typography>
 
                     <Box
@@ -124,12 +176,12 @@ export const RealidadAumentada = () => {
                     >
                         <model-viewer
                             ref={viewerRef}
-                            src={MODELO_VENTANA}
-                            ios-src={MODELO_VENTANA_IOS}
+                            src={modelos?.glbUrl}
+                            ios-src={modelos?.usdzUrl}
                             alt="Modelo 3D de una ventana corrediza"
                             loading="eager"
                             ar
-                            ar-modes="webxr scene-viewer quick-look"
+                            ar-modes="quick-look"
                             ar-placement="wall"
                             ar-scale="fixed"
                             camera-controls
