@@ -24,6 +24,7 @@ import NuevoInicio from "./modules/inicio/NuevoInicio.tsx";
 import {EncabezadoPagina} from "./components/EncabezadoPagina.tsx";
 import {Footer} from "./components/Footer.tsx";
 import {Accesorios} from "./modules/accesorios/Accesorios.tsx";
+import {RealidadAumentada} from "./modules/realidad-aumentada/RealidadAumentada.tsx";
 
 const AppContent = () => {
     const [menuOpen, setMenuOpen] = useState<boolean>(false);
@@ -88,6 +89,7 @@ const AppContent = () => {
                         <Route path="/quincalleria" element={<ProtectedRoute><Quincalleria /></ProtectedRoute>} />
                         <Route path="/tipo-pautas" element={<ProtectedRoute><TipoPauta /></ProtectedRoute>} />
                         <Route path="/accesorios" element={<ProtectedRoute><Accesorios /></ProtectedRoute>} />
+                        <Route path="/realidad-aumentada" element={<ProtectedRoute><RealidadAumentada /></ProtectedRoute>} />
                     </Routes>
                 </Box>
 

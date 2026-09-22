@@ -57,6 +57,10 @@ export const EncabezadoPagina = () => {
             titulo: "Venta al Publico",
             subtitulo: "Catálogo general de herrajes, accesorios y complementos.",
         },
+        "/realidad-aumentada": {
+            titulo: "Realidad Aumentada",
+            subtitulo: "Visualiza una ventana a escala real en tu espacio usando la cámara del teléfono.",
+        },
     };
 
     const paginaActual = paginas[location.pathname] ?? {

@@ -21,7 +21,8 @@ import {
     ViewList,
     AccountTree,
     CropFree,
-    DesignServices
+    DesignServices,
+    ViewInAr
 } from '@mui/icons-material';
 import { useNavigate, useLocation } from 'react-router-dom';
 import useWindowDimensions from '../hooks/useWindowDimensions';
@@ -40,6 +41,7 @@ const menuItems = [
     { text: 'Vidrios', icon: Window, path: '/vidrios' },
     { text: 'Colores', icon: Palette, path: '/colores' },
     { text: 'Series', icon: ViewList, path: '/series' },
+    { text: 'Realidad Aumentada', icon: ViewInAr, path: '/realidad-aumentada' },
 
 ];
 
