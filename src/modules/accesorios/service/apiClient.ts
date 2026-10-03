@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import {ProductoCatalogoInterface , CategoriaProductoInterface} from "./interface.ts";
+import { getImagenesDisponibles } from '../../../utils/imagenes.ts';
 
 
 
@@ -90,20 +91,7 @@ export const deleteCategoria = async (categoriaId:number) => {
     }
 };
 
-export const getImagenesServidor = async (): Promise<string[]> => {
-    try {
-
-        const response = await axios.get<string[]>(
-            "http://147.93.35.74:7099/imagenes"
-        );
-
-        return response.data;
-
-    } catch (err) {
-        console.error("Error al obtener imágenes:", err);
-        return [];
-    }
-};
+export const getImagenesServidor = getImagenesDisponibles;
 
 export const uploadImage = async (file: File): Promise<string> => {
     try {

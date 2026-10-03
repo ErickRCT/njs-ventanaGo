@@ -17,6 +17,7 @@ import {
     Image,
     Delete
 } from '@mui/icons-material';
+import { urlImagen } from '../../utils/imagenes.ts';
 
 interface PautaRowProps {
     pauta: Pauta;
@@ -91,7 +92,7 @@ const PautaRow: React.FC<PautaRowProps> = ({ pauta, expanded, onToggle ,editPaut
                         <img
                             src={
                                 pauta.tipoPauta?.rutaImagen
-                                    ? `http://147.93.35.74/${pauta.tipoPauta.rutaImagen}`
+                                    ? urlImagen(pauta.tipoPauta.rutaImagen)
                                     : '/placeholder.jpg'
                             }
                             alt="Imagen de la pauta"

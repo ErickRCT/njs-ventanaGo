@@ -2,6 +2,7 @@ import { Box, Button, List, ListItem, Typography } from "@mui/material";
 import { ProductosAgregadosProps } from "../crearCotizacionInterface";
 import { deleteVentana, getCotizacion } from "../service/apiClient";
 import { Cotizacion } from "../service/interface";
+import { urlImagen } from '../../../utils/imagenes.ts';
 
 const ProductosAgregados = ({ cotizacion , setCotizacion }: ProductosAgregadosProps) => {
 
@@ -58,7 +59,7 @@ const ProductosAgregados = ({ cotizacion , setCotizacion }: ProductosAgregadosPr
             {/* Información del Producto */}
             <Box sx={{ display: "flex", alignItems: "center", gap: 2, flexWrap: "wrap" }}>
               <img
-                src={`http://147.93.35.74/${product.pauta?.tipoPauta.rutaImagen}`}
+                src={urlImagen(product.pauta?.tipoPauta.rutaImagen)}
                 
                 style={{
                   width: "80px",

@@ -1,6 +1,7 @@
 import { getColores, getPautas, getSeries, getVidrios } from "../crear-cotizacion/service/apiClient.ts";
 import type { Pauta } from "../crear-cotizacion/service/interface.ts";
 import type { ModeloVentana } from "../realidad-aumentada/ventana3d.ts";
+import { urlImagen } from '../../utils/imagenes.ts';
 
 export interface OpcionCatalogo {
     /** null en las opciones del catálogo básico, que no vienen del backend. */
@@ -161,7 +162,7 @@ export const cargarPautas = async (): Promise<PautaCatalogo[]> => {
     return porSerie.flat();
 };
 
-export const urlImagenPauta = (rutaImagen?: string | null) => (rutaImagen ? `http://147.93.35.74/${rutaImagen}` : null);
+export const urlImagenPauta = (rutaImagen?: string | null) => (rutaImagen ? urlImagen(rutaImagen) : null);
 
 // El backend solo entrega el nombre del color, así que el tono del modelo 3D se deduce de él.
 const COLORES_MARCO: Record<string, number> = {

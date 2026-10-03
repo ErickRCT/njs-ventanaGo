@@ -2,6 +2,7 @@ import {PerfilInterface} from "./interface.ts";
 import axios, {AxiosResponse} from "axios";
 import {TipoPerfilInterface} from "../../tipo-perfil/service/interface.ts";
 import {SerieInterface} from "../../serie/service/interface.ts";
+import { getImagenesDisponibles } from '../../../utils/imagenes.ts';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -35,20 +36,7 @@ export const getAllSeries = async (): Promise<SerieInterface[]> => {
     }
 };
 
-export const getImagenesServidor = async (): Promise<string[]> => {
-    try {
-
-        const response = await axios.get<string[]>(
-            "http://147.93.35.74:7099/imagenes"
-        );
-
-        return response.data;
-
-    } catch (err) {
-        console.error("Error al obtener imágenes:", err);
-        return [];
-    }
-};
+export const getImagenesServidor = getImagenesDisponibles;
 
 
 export const postPerfiles = async (perfil : PerfilInterface): Promise<PerfilInterface> => {

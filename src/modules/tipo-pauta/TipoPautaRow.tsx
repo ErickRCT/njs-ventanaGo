@@ -13,6 +13,7 @@ import { TipoPautaInterface } from "./service/interface.ts";
 import {Edit ,
     Image
 } from '@mui/icons-material';
+import { urlImagen } from '../../utils/imagenes.ts';
 
 interface TipoPautaRowProps {
     tipoPauta: TipoPautaInterface;
@@ -53,7 +54,7 @@ const TipoPautaRow: React.FC<TipoPautaRowProps> = ({ tipoPauta , onEdit }) => {
                 <DialogContent>
                     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                         <img
-                            src={`http://147.93.35.74/${tipoPauta.rutaImagen}`}
+                            src={urlImagen(tipoPauta.rutaImagen)}
                             alt="Imagen tipo pauta"
                             style={{ maxWidth: '100%', maxHeight: '80vh', borderRadius: 8 }}
                         />

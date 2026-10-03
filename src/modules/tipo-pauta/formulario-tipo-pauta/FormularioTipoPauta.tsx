@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 import { SelectorImagen } from "../../perfil/formulario-perfil/SelectorImagen.tsx";
 import {postTipoPauta, putTipoPauta} from '../service/apiClient.ts';
+import { urlImagen } from '../../../utils/imagenes.ts';
 
 
 interface TipoPauta {
@@ -173,7 +174,7 @@ export const FormularioTipoPauta: React.FC<TipoPautaFormProps> = ({ onSubmit, on
                                         }}
                                     >
                                         <img
-                                            src={`http://147.93.35.74/${formData.rutaImagen}`}
+                                            src={urlImagen(formData.rutaImagen)}
                                             alt="Imagen seleccionada"
                                             style={{
                                                 maxWidth: '100%',

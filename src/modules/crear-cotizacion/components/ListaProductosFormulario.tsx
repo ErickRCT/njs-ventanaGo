@@ -14,6 +14,7 @@ import {
 } from "../crearCotizacionStyles";
 
 import { ListaProductosFormularioProps } from "../crearCotizacionInterface";
+import { urlImagen } from '../../../utils/imagenes.ts';
 
 const ListaProductosFormulario: React.FC<ListaProductosFormularioProps> = ({
                                                                                altoReforzado,
@@ -79,7 +80,7 @@ const ListaProductosFormulario: React.FC<ListaProductosFormularioProps> = ({
                                         }}
                                     >
                                         <img
-                                            src={`http://147.93.35.74/${producto.tipoPauta?.rutaImagen}`}
+                                            src={urlImagen(producto.tipoPauta?.rutaImagen)}
                                             alt={`Producto ${index + 1}`}
                                             onError={(e) => {
                                                 e.currentTarget.src = "/images/no-image.png";

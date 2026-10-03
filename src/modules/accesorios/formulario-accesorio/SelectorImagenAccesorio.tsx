@@ -240,7 +240,7 @@ export const SelectorImagenAccesorio: React.FC<SelectorImagenAccesorioProps> = (
                                 }}
                             >
                                 <img
-                                    src={"http://147.93.35.74:3099/api/images/df43e141-26ef-4d13-9b27-d3c05dfb52da.png?destino=catalogo-producto"}
+                                    src={filteredImages[currentIndex]?.url}
                                     alt={`Imagen ${currentIndex + 1}`}
                                     style={{
                                         maxWidth: '100%',

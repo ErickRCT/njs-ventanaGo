@@ -3,7 +3,6 @@ import { Serie, Vidrio, Color, Pauta, Cotizacion, Ventana } from "./interface";
 import {Cliente} from "../../../components/service/inteface.ts";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-const API_BASE_URL_ = "http://147.93.35.74:7099";
 
 export const getSeries = async (): Promise<Serie[]> => {
   try {

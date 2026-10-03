@@ -22,6 +22,7 @@ import {editQuincalleria, getAllSeries} from '../service/apiClient.ts';
 import { SelectorImagen } from "../../perfil/formulario-perfil/SelectorImagen.tsx";
 import { postQuincalleria } from '../service/apiClient.ts';
 import {QuincalleriaInterface} from "../service/interface.ts";
+import { urlImagen } from '../../../utils/imagenes.ts';
 
 interface Serie {
     serieId: number;
@@ -300,7 +301,7 @@ export const FormularioQuincalleria: React.FC<QuincalleriaFormProps> = ({ onSubm
                                         }}
                                     >
                                         <img
-                                            src={`http://147.93.35.74/${formData.rutaImagen}`}
+                                            src={urlImagen(formData.rutaImagen)}
                                             alt="Imagen seleccionada"
                                             style={{
                                                 maxWidth: '100%',

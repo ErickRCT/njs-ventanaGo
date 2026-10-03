@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import {Box, TextField, Grid, Paper, Typography, Button, Autocomplete, Alert} from '@mui/material';
 import { FormularioProductoProps, Producto } from '../crearCotizacionInterface';
+import { urlImagen } from '../../../utils/imagenes.ts';
 
 // Mapeo de nombre de color -> representación visual (color/gradiente)
 // Ideal: reemplazar esto por un campo `hex` que venga directo del backend en coloresData
@@ -115,7 +116,7 @@ export const FormularioProducto: React.FC<FormularioProductoProps> = ({
             {productoImage && (
                 <Box textAlign="center" mb={2}>
                   <img
-                      src={`http://147.93.35.74/${productoImage}`}
+                      src={urlImagen(productoImage)}
                       alt="Producto"
                       style={{ maxWidth: '100%', height: 'auto', borderRadius: '8px' }}
                   />

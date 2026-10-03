@@ -17,6 +17,7 @@ import {Edit ,
     Delete,
     Image
 } from '@mui/icons-material';
+import { urlImagen } from '../../utils/imagenes.ts';
 
 interface QuincalleriaRowProps {
     quincalleria: QuincalleriaInterface;
@@ -88,7 +89,7 @@ const QuincalleriaRow: React.FC<QuincalleriaRowProps> = ({ quincalleria, deleteQ
                 <DialogContent>
                     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                         <img
-                            src={`http://147.93.35.74/${quincalleria.rutaImagen}`}
+                            src={urlImagen(quincalleria.rutaImagen)}
                             alt="Imagen quincallería"
                             style={{ maxWidth: '100%', maxHeight: '80vh', borderRadius: 8 }}
                         />
