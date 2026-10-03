@@ -61,6 +61,22 @@ export const EncabezadoPagina = () => {
             titulo: "Realidad Aumentada",
             subtitulo: "Visualiza una ventana a escala real en tu espacio usando la cámara del teléfono.",
         },
+        "/cliente/disenar": {
+            titulo: "Diseñar Ventana",
+            subtitulo: "Elige una pauta, ingresa las medidas y elige el color y el vidrio de tu ventana; mírala en realidad aumentada sobre tu pared y agrégala al carrito.",
+        },
+        "/cliente/carrito": {
+            titulo: "Carrito",
+            subtitulo: "Revisa las ventanas que quieres cotizar y envía tu solicitud a la empresa indicando los servicios que necesitas.",
+        },
+        "/cliente/mis-cotizaciones": {
+            titulo: "Mis Cotizaciones",
+            subtitulo: "Sigue el estado de tus solicitudes y revisa la respuesta de la empresa.",
+        },
+        "/empresa/solicitudes": {
+            titulo: "Solicitudes de Cotización",
+            subtitulo: "Recibe las solicitudes de los clientes, define precios y acepta, modifica o rechaza cada una; el cliente es informado en la app o por correo.",
+        },
     };
 
     const paginaActual = paginas[location.pathname] ?? {

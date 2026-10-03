@@ -9,7 +9,7 @@ import CotizacionRapida from './modules/CotizacionRapida';
 import {NuevoColor} from './modules/color/NuevoColor';
 import { Login } from './modules/login/Login';
 import { ProtectedRoute } from './components/ProtectedRoute';
-import { AuthProvider, useAuth } from './context/AuthContext';
+import { AuthProvider, RUTA_INICIAL, useAuth } from './context/AuthContext';
 import useWindowDimensions from "./hooks/useWindowDimensions.ts";
 import {NuevoCliente} from "./modules/clientes/NuevoCliente.tsx";
 import {NuevoVidrios} from "./modules/vidrios/NuevoVidrios.tsx";
@@ -25,10 +25,14 @@ import {EncabezadoPagina} from "./components/EncabezadoPagina.tsx";
 import {Footer} from "./components/Footer.tsx";
 import {Accesorios} from "./modules/accesorios/Accesorios.tsx";
 import {RealidadAumentada} from "./modules/realidad-aumentada/RealidadAumentada.tsx";
+import {DisenarVentana} from "./modules/cliente/DisenarVentana.tsx";
+import {Carrito} from "./modules/cliente/Carrito.tsx";
+import {MisCotizaciones} from "./modules/cliente/MisCotizaciones.tsx";
+import {SolicitudesEmpresa} from "./modules/empresa/SolicitudesEmpresa.tsx";
 
 const AppContent = () => {
     const [menuOpen, setMenuOpen] = useState<boolean>(false);
-    const { isAuthenticated } = useAuth();
+    const { isAuthenticated, rol } = useAuth();
     const { width } = useWindowDimensions();
     const isMobile = width < 960;
 
@@ -74,22 +78,32 @@ const AppContent = () => {
                     }}
                 >
                     <Routes>
-                        <Route path="/inicio" element={<ProtectedRoute><NuevoInicio /></ProtectedRoute>} />
-                        <Route path="/" element={<Navigate to="/inicio" />} />
-                        <Route path="/cotizacion" element={<ProtectedRoute><CrearCotizacion /></ProtectedRoute>} />
-                        <Route path="/clientes" element={<ProtectedRoute><NuevoCliente /></ProtectedRoute>} />
-                        <Route path="/cotizacion-rapida" element={<ProtectedRoute><CotizacionRapida /></ProtectedRoute>} />
-                        <Route path="/pautas" element={<ProtectedRoute><NuevoPautas /></ProtectedRoute>} />
-                        <Route path="/cotizaciones" element={<ProtectedRoute><NuevoCotizaciones /></ProtectedRoute>} />
-                        <Route path="/vidrios" element={<ProtectedRoute><NuevoVidrios /></ProtectedRoute>} />
-                        <Route path="/colores" element={<ProtectedRoute><NuevoColor /></ProtectedRoute>} />
-                        <Route path="/series" element={<ProtectedRoute><NuevoSerie /></ProtectedRoute>} />
-                        <Route path="/tipo-perfil" element={<ProtectedRoute><TipoPerfil /></ProtectedRoute>} />
-                        <Route path="/perfil" element={<ProtectedRoute><Perfil /></ProtectedRoute>} />
-                        <Route path="/quincalleria" element={<ProtectedRoute><Quincalleria /></ProtectedRoute>} />
-                        <Route path="/tipo-pautas" element={<ProtectedRoute><TipoPauta /></ProtectedRoute>} />
-                        <Route path="/accesorios" element={<ProtectedRoute><Accesorios /></ProtectedRoute>} />
-                        <Route path="/realidad-aumentada" element={<ProtectedRoute><RealidadAumentada /></ProtectedRoute>} />
+                        <Route path="/" element={<Navigate to={rol ? RUTA_INICIAL[rol] : "/inicio"} />} />
+
+                        {/* Administrador: todos los módulos de gestión */}
+                        <Route path="/inicio" element={<ProtectedRoute roles={['admin']}><NuevoInicio /></ProtectedRoute>} />
+                        <Route path="/cotizacion" element={<ProtectedRoute roles={['admin']}><CrearCotizacion /></ProtectedRoute>} />
+                        <Route path="/clientes" element={<ProtectedRoute roles={['admin']}><NuevoCliente /></ProtectedRoute>} />
+                        <Route path="/cotizacion-rapida" element={<ProtectedRoute roles={['admin']}><CotizacionRapida /></ProtectedRoute>} />
+                        <Route path="/pautas" element={<ProtectedRoute roles={['admin']}><NuevoPautas /></ProtectedRoute>} />
+                        <Route path="/cotizaciones" element={<ProtectedRoute roles={['admin']}><NuevoCotizaciones /></ProtectedRoute>} />
+                        <Route path="/vidrios" element={<ProtectedRoute roles={['admin']}><NuevoVidrios /></ProtectedRoute>} />
+                        <Route path="/colores" element={<ProtectedRoute roles={['admin']}><NuevoColor /></ProtectedRoute>} />
+                        <Route path="/series" element={<ProtectedRoute roles={['admin']}><NuevoSerie /></ProtectedRoute>} />
+                        <Route path="/tipo-perfil" element={<ProtectedRoute roles={['admin']}><TipoPerfil /></ProtectedRoute>} />
+                        <Route path="/perfil" element={<ProtectedRoute roles={['admin']}><Perfil /></ProtectedRoute>} />
+                        <Route path="/quincalleria" element={<ProtectedRoute roles={['admin']}><Quincalleria /></ProtectedRoute>} />
+                        <Route path="/tipo-pautas" element={<ProtectedRoute roles={['admin']}><TipoPauta /></ProtectedRoute>} />
+                        <Route path="/accesorios" element={<ProtectedRoute roles={['admin']}><Accesorios /></ProtectedRoute>} />
+                        <Route path="/realidad-aumentada" element={<ProtectedRoute roles={['admin']}><RealidadAumentada /></ProtectedRoute>} />
+
+                        {/* Cliente: diseña ventanas, las ve en RA, arma su carrito y pide cotización */}
+                        <Route path="/cliente/disenar" element={<ProtectedRoute roles={['cliente']}><DisenarVentana /></ProtectedRoute>} />
+                        <Route path="/cliente/carrito" element={<ProtectedRoute roles={['cliente']}><Carrito /></ProtectedRoute>} />
+                        <Route path="/cliente/mis-cotizaciones" element={<ProtectedRoute roles={['cliente']}><MisCotizaciones /></ProtectedRoute>} />
+
+                        {/* Empresa: recibe las solicitudes y las acepta, modifica o rechaza */}
+                        <Route path="/empresa/solicitudes" element={<ProtectedRoute roles={['empresa']}><SolicitudesEmpresa /></ProtectedRoute>} />
                     </Routes>
                 </Box>
 

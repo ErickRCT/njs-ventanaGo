@@ -1,22 +1,35 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, TextField, Button, Typography } from '@mui/material';
-import { useAuth } from '../../context/AuthContext.tsx'; // Importar el contexto de autenticación
+import { Alert, Box, Button, TextField, Typography } from '@mui/material';
+import { RUTA_INICIAL, useAuth } from '../../context/AuthContext.tsx';
+import { loginConPassword, mensajeDeError } from '../../context/authApi.ts';
 
+const ROL_FRONT = { ADMIN: 'admin', CLIENTE: 'cliente', PROVEEDOR: 'empresa' } as const;
+
+/**
+ * Usuario y contraseña para todos los roles.
+ * El backend también acepta códigos por correo y Google (authApi.ts, BotonGoogle.tsx) por si se vuelven a mostrar.
+ */
 export const Login = () => {
-    const [username, setUsername] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
-    const [error, setError] = useState<string>('');
+    const [usuario, setUsuario] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const [cargando, setCargando] = useState(false);
     const navigate = useNavigate();
-    const { login } = useAuth(); // Obtener la función login del contexto
+    const { login } = useAuth();
 
-    const handleLogin = () => {
-        // Datos en duro para la autenticación
-        if (username === 'admin' && password === 'admin') {
-            login(); // Llamar a la función login del contexto
-            navigate('/inicio'); // Redirigir al inicio
-        } else {
-            setError('Usuario o contraseña incorrectos');
+    const handleSubmit = async (e: FormEvent) => {
+        e.preventDefault();
+        setError('');
+        setCargando(true);
+        try {
+            const sesion = await loginConPassword(usuario, password);
+            login(sesion);
+            navigate(RUTA_INICIAL[ROL_FRONT[sesion.cuenta.rol]]);
+        } catch (err) {
+            setError(mensajeDeError(err));
+        } finally {
+            setCargando(false);
         }
     };
 
@@ -27,12 +40,15 @@ export const Login = () => {
                 justifyContent: 'center',
                 alignItems: 'center',
                 minHeight: '100vh',
+                px: 2,
                 backgroundImage: 'linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%)',
             }}
         >
             <Box
+                component="form"
+                onSubmit={(e) => void handleSubmit(e)}
                 sx={{
-                    padding: 4,
+                    padding: { xs: 3, sm: 4 },
                     display: 'flex',
                     flexDirection: 'column',
                     gap: 2,
@@ -43,35 +59,32 @@ export const Login = () => {
                     boxShadow: 3,
                 }}
             >
-                <Typography variant="h4" align="center" gutterBottom>
+                <Typography variant="h4" align="center">
                     Iniciar Sesión
                 </Typography>
                 <TextField
                     label="Usuario"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    autoComplete="username"
+                    value={usuario}
+                    onChange={(e) => setUsuario(e.target.value)}
                     fullWidth
+                    required
+                    autoFocus
                 />
                 <TextField
                     label="Contraseña"
                     type="password"
+                    autoComplete="current-password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     fullWidth
+                    required
                 />
-                {error && (
-                    <Typography color="error" align="center">
-                        {error}
-                    </Typography>
-                )}
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleLogin}
-                    fullWidth
-                >
+                <Button type="submit" variant="contained" fullWidth disabled={cargando || !usuario.trim() || !password}>
                     Ingresar
                 </Button>
+
+                {error && <Alert severity="error">{error}</Alert>}
             </Box>
         </Box>
     );

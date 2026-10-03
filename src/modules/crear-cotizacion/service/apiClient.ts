@@ -86,6 +86,16 @@ export const postVentana = async (ventana : Ventana): Promise<Ventana> => {
   }
 };
 
+export const cotizarVentana = async (ventana : Ventana): Promise<Ventana> => {
+  try {
+    const response: AxiosResponse<Ventana> = await axios.post(`${API_BASE_URL}/ventana/cotizar`, ventana);
+    return response.data;
+  } catch (error) {
+    console.error("Error cotizarVentana :", error);
+    throw error;
+  }
+};
+
 export const deleteVentana = async (ventanaId : number | null): Promise<void> => {
   try {
     const response: AxiosResponse<void> = await axios.delete(`${API_BASE_URL}/ventana/eliminar/${ventanaId}`);

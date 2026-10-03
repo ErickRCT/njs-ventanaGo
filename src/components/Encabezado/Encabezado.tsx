@@ -11,7 +11,11 @@ import {
     Badge,
 } from '@mui/material';
 import { Settings, Notifications, Menu as MenuIcon } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext.tsx';
+import {
+    DESTINATARIO_EMPRESA, destinatarioCliente, marcarAvisosLeidos, useAvisos,
+} from '../../modules/solicitudes/solicitudesService.ts';
 
 interface EncabezadoProps {
     isMobile: boolean;
@@ -22,7 +26,19 @@ export const Encabezado: React.FC<EncabezadoProps> = ({ isMobile, onOpenMenu }) 
     const [anchorElSettings, setAnchorElSettings] = useState<null | HTMLElement>(null);
     const [anchorElNotifications, setAnchorElNotifications] = useState<null | HTMLElement>(null);
     const [anchorElProfile, setAnchorElProfile] = useState<null | HTMLElement>(null);
-    const { logout } = useAuth();
+    const { logout, rol, usuario } = useAuth();
+    const navigate = useNavigate();
+
+    // Los avisos son de la empresa (solicitudes nuevas) o del cliente (respuestas); el administrador no recibe.
+    const destinatario = rol === 'empresa' ? DESTINATARIO_EMPRESA : rol === 'cliente' ? destinatarioCliente(usuario) : null;
+    const avisos = useAvisos(destinatario ?? '');
+    const sinLeer = avisos.filter((aviso) => !aviso.leido).length;
+    const rutaAvisos = rol === 'empresa' ? '/empresa/solicitudes' : '/cliente/mis-cotizaciones';
+
+    const cerrarAvisos = () => {
+        setAnchorElNotifications(null);
+        if (destinatario) marcarAvisosLeidos(destinatario);
+    };
 
     const handleMenuOpen = (
         event: React.MouseEvent<HTMLButtonElement>,
@@ -103,16 +119,36 @@ export const Encabezado: React.FC<EncabezadoProps> = ({ isMobile, onOpenMenu }) 
                         onClick={(e) => handleMenuOpen(e, setAnchorElNotifications)}
                         sx={{ color: '#4a5568', '&:hover': { backgroundColor: '#f7fafc' } }}
                     >
-                        <Badge badgeContent={1} color="error">
+                        <Badge badgeContent={sinLeer} color="error">
                             {React.createElement(Notifications, { fontSize: "medium" })}
                         </Badge>
                     </IconButton>
                     <Menu
                         anchorEl={anchorElNotifications}
                         open={Boolean(anchorElNotifications)}
-                        onClose={() => handleMenuClose(setAnchorElNotifications)}
+                        onClose={cerrarAvisos}
+                        PaperProps={{ sx: { maxWidth: 360, maxHeight: 400 } }}
                     >
-                        <MenuItem onClick={() => handleMenuClose(setAnchorElNotifications)}>Notificación 1</MenuItem>
+                        {avisos.length === 0 && <MenuItem disabled>Sin notificaciones</MenuItem>}
+                        {avisos.map((aviso) => (
+                            <MenuItem
+                                key={aviso.id}
+                                onClick={() => {
+                                    cerrarAvisos();
+                                    navigate(rutaAvisos);
+                                }}
+                                sx={{ whiteSpace: 'normal', alignItems: 'flex-start' }}
+                            >
+                                <Box>
+                                    <Typography variant="body2" sx={{ fontWeight: aviso.leido ? 400 : 700 }}>
+                                        {aviso.titulo}
+                                    </Typography>
+                                    <Typography variant="caption" color="text.secondary" sx={{ display: 'block' }}>
+                                        {aviso.mensaje}
+                                    </Typography>
+                                </Box>
+                            </MenuItem>
+                        ))}
                     </Menu>
 
                     {/* Perfil del usuario */}
@@ -128,7 +164,7 @@ export const Encabezado: React.FC<EncabezadoProps> = ({ isMobile, onOpenMenu }) 
                             fontWeight: 600,
                             color: '#ffffff'
                         }}>
-                            SP
+                            {usuario.slice(0, 2).toUpperCase()}
                         </Avatar>
                     </IconButton>
                     <Menu

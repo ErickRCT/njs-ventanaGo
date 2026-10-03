@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { colocacionEnPared, type ColocacionPared } from "./colocacionPared.ts";
-import { crearVentana, liberar, VENTANA } from "./ventana3d.ts";
+import { CONFIG_POR_DEFECTO, crearVentana, dimensionesM, liberar, type ConfigVentana } from "./ventana3d.ts";
 
 const PASO_AJUSTE_M = 0.02;
 // Una detección deja de servir para "Colocar aquí" si tiene más de este tiempo.
@@ -40,7 +40,7 @@ const habilitar = (boton: HTMLButtonElement, activo: boolean) => {
  * del tamaño real de la ventana y, al confirmar, la coloca vertical sobre la pared a escala 1:1.
  * Lanza un error si el navegador o el dispositivo no pueden iniciar la sesión.
  */
-export const iniciarArGuiada = async (): Promise<void> => {
+export const iniciarArGuiada = async (config: ConfigVentana = CONFIG_POR_DEFECTO): Promise<void> => {
     const xr = navigator.xr;
     if (!xr) throw new Error("WebXR no está disponible en este navegador.");
 
@@ -85,11 +85,12 @@ export const iniciarArGuiada = async (): Promise<void> => {
     const escena = new THREE.Scene();
     const camara = new THREE.PerspectiveCamera();
     escena.add(new THREE.HemisphereLight(0xffffff, 0x666666, 3));
-    const ventana = crearVentana();
+    const ventana = crearVentana(config);
     ventana.visible = false;
     escena.add(ventana);
+    const { ancho, alto } = dimensionesM(config);
     const contorno = new THREE.LineSegments(
-        new THREE.EdgesGeometry(new THREE.BoxGeometry(VENTANA.ancho, VENTANA.alto, 0.01)),
+        new THREE.EdgesGeometry(new THREE.BoxGeometry(ancho, alto, 0.01)),
         new THREE.LineBasicMaterial({ color: COLOR_CONTORNO }),
     );
     contorno.visible = false;
