@@ -219,7 +219,7 @@ const Inicio = () => {
                             paddingAngle={2}
                             dataKey="value"
                         >
-                          {clientData.map((entry, index) => (
+                          {clientData.map((_, index) => (
                               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                           ))}
                         </Pie>

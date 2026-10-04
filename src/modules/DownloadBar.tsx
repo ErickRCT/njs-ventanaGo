@@ -3,8 +3,7 @@ import {
     Box,
     Tooltip,
     IconButton,
-    Stack,
-    useTheme
+    Stack
 } from '@mui/material';
 import {
     RequestQuote as RequestQuoteIcon,
@@ -44,7 +43,6 @@ const DownloadBar: React.FC<DownloadBarProps> = ({
                                                      onDownloadAll,
                                                      disabled = false
                                                  }) => {
-    const theme = useTheme();
 
     const iconButtonStyle = (color: string) => ({
         backgroundColor: color + '14', // 8% opacity

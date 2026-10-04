@@ -71,7 +71,6 @@ const itemsAdministrador: ItemMenu[] = [
     { text: 'Vidrios', icon: Window, path: '/vidrios' },
     { text: 'Colores', icon: Palette, path: '/colores' },
     { text: 'Series', icon: ViewList, path: '/series' },
-    { text: 'Realidad Aumentada', icon: ViewInAr, path: '/realidad-aumentada' },
 ];
 
 interface MenuLateralProps {

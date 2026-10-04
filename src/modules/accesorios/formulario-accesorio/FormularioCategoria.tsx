@@ -16,7 +16,7 @@ import {
     DialogActions,
     Alert,
 } from "@mui/material";
-import { CatalogoCategoriaProductoInterface } from "../Accesorios.tsx";
+import type { CategoriaProductoInterface as CatalogoCategoriaProductoInterface } from "../service/interface.ts";
 // IMPORTANTE: Asegúrate de ajustar la ruta de importación según tu estructura de carpetas
 import { postCategoria, putCategoria } from "../service/apiClient.ts";
 

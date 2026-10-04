@@ -50,7 +50,7 @@ export const Perfil = () => {
         setPage(0);
     };
 
-    const handleToggleRow = (perfilId:number) => {
+    const handleToggleRow = (perfilId: number | null) => {
         setExpandedRowId(expandedRowId === perfilId ? null : perfilId);
     };
 
@@ -84,7 +84,7 @@ export const Perfil = () => {
             setLoading(true);
             setErrorCarga(null);
 
-            await deletePerfil(perfilAEliminar.perfilId);
+            await deletePerfil(perfilAEliminar.perfilId ?? null);
 
             await getPerfiles();
 
@@ -117,7 +117,7 @@ export const Perfil = () => {
             setErrorCarga(null);
             const response: PerfilInterface[] = await getAllPerfiles();
             console.log(response);
-            const perfilesOrdenados = response.sort((a, b) => b.perfilId - a.perfilId);
+            const perfilesOrdenados = response.sort((a, b) => (b.perfilId ?? 0) - (a.perfilId ?? 0));
             setPerfiles(perfilesOrdenados);
             setFilteredPerfiles(perfilesOrdenados);
         } catch (error) {
@@ -162,7 +162,7 @@ export const Perfil = () => {
                 editPerfil={handleEdit}
                 deletePerfil={() => handleDeleteClick(perfil)}
                 expanded={expandedRowId === perfil.perfilId}
-                onToggle={() => handleToggleRow(perfil.perfilId)}
+                onToggle={() => handleToggleRow(perfil.perfilId ?? null)}
             />
         ));
     };

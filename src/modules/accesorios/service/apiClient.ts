@@ -71,7 +71,7 @@ export const postCategoria = async (categoria : CategoriaProductoInterface): Pro
     }
 };
 
-export const putCategoria = async (categoria : CategoriaProductoInterface): Promise<ProductoCatalogoInterface> => {
+export const putCategoria = async (categoria : CategoriaProductoInterface): Promise<CategoriaProductoInterface> => {
     try {
         const response: AxiosResponse<CategoriaProductoInterface> = await axios.put(`${API_BASE_URL}/catalogo/categoriaproducto/modificar`, categoria);
         return response.data;

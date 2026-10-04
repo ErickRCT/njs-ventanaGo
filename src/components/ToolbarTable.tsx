@@ -19,7 +19,7 @@ interface ToolbarTableProps {
     search?: string;
     busquedaDescripcion: ReactNode;
     agregarDescripcion: ReactNode;
-    placeHolderBuscador: ReactNode;
+    placeHolderBuscador: string;
 }
 
 const ToolbarTable: React.FC<ToolbarTableProps> = ({

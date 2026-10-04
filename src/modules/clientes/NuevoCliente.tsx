@@ -32,7 +32,6 @@ export const NuevoCliente = () => {
     const [errorCarga, setErrorCarga] = useState<Error | null>(null);
     const [filteredClientes, setFilteredClientes] = useState<Cliente[]>([]);
     const [search, setSearch] = useState("");
-    const [clienteSeleccionado, setClienteSeleccionado] = useState<Cliente | null>(null);
 
 
     const handleChangePage: TablePaginationProps['onPageChange'] = (_, newPage) => {

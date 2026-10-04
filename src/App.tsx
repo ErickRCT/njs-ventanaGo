@@ -24,7 +24,6 @@ import NuevoInicio from "./modules/inicio/NuevoInicio.tsx";
 import {EncabezadoPagina} from "./components/EncabezadoPagina.tsx";
 import {Footer} from "./components/Footer.tsx";
 import {Accesorios} from "./modules/accesorios/Accesorios.tsx";
-import {RealidadAumentada} from "./modules/realidad-aumentada/RealidadAumentada.tsx";
 import {DisenarVentana} from "./modules/cliente/DisenarVentana.tsx";
 import {Carrito} from "./modules/cliente/Carrito.tsx";
 import {MisCotizaciones} from "./modules/cliente/MisCotizaciones.tsx";
@@ -95,7 +94,6 @@ const AppContent = () => {
                         <Route path="/quincalleria" element={<ProtectedRoute roles={['admin']}><Quincalleria /></ProtectedRoute>} />
                         <Route path="/tipo-pautas" element={<ProtectedRoute roles={['admin']}><TipoPauta /></ProtectedRoute>} />
                         <Route path="/accesorios" element={<ProtectedRoute roles={['admin']}><Accesorios /></ProtectedRoute>} />
-                        <Route path="/realidad-aumentada" element={<ProtectedRoute roles={['admin']}><RealidadAumentada /></ProtectedRoute>} />
 
                         {/* Cliente: diseña ventanas, las ve en RA, arma su carrito y pide cotización */}
                         <Route path="/cliente/disenar" element={<ProtectedRoute roles={['cliente']}><DisenarVentana /></ProtectedRoute>} />

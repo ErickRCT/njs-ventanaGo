@@ -51,7 +51,7 @@ export const NuevoPautas = () => {
         setPage(0);
     };
 
-    const handleToggleRow = (pautaId: number) => {
+    const handleToggleRow = (pautaId: number | null) => {
         setExpandedRowId(current => current === pautaId ? null : pautaId);
     };
 
@@ -73,7 +73,7 @@ export const NuevoPautas = () => {
 
     const confirmarEliminar = async () => {
 
-        if (!pautaAEliminar) return;
+        if (pautaAEliminar?.pautaId == null) return;
 
         try {
             setLoading(true);
@@ -118,7 +118,7 @@ export const NuevoPautas = () => {
             setLoading(true);
             setErrorCarga(null);
             const response = await getAllPautas();
-            const pautasOrdenados = response.sort((a, b) => b.pautaId - a.pautaId);
+            const pautasOrdenados = response.sort((a, b) => (b.pautaId ?? 0) - (a.pautaId ?? 0));
             setPautas(pautasOrdenados);
             setFilteredPautas(pautasOrdenados);
         } catch (error) {
@@ -168,7 +168,7 @@ export const NuevoPautas = () => {
                 key={pauta.pautaId}
                 pauta={pauta}
                 expanded={expandedRowId === pauta.pautaId}
-                onToggle={() => handleToggleRow(pauta.pautaId)}
+                onToggle={() => handleToggleRow(pauta.pautaId ?? null)}
                 editPauta={handleEdit}
                 deletePauta={() => handleDeleteClick(pauta)}
             />

@@ -59,7 +59,7 @@ export const FormularioQuincalleria: React.FC<QuincalleriaFormProps> = ({ onSubm
     const [dialogoExito, setDialogoExito] = useState(false);
     const [dialogoErrorPost, setDialogoErrorPost] = useState(false);
     const [camposFaltantes, setCamposFaltantes] = useState<string[]>([]);
-    const [touchedFields, setTouchedFields] = useState<Record<string, boolean>>({
+    const [, setTouchedFields] = useState<Record<string, boolean>>({
         nombre: false,
         valor: false,
         serie: false

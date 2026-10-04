@@ -29,7 +29,7 @@ interface ImageData {
 
 export const SelectorImagenAccesorio: React.FC<SelectorImagenAccesorioProps> = ({ imagenActual, onSeleccionar }) => {
     const [open, setOpen] = useState(false);
-    const [selectedImage, setSelectedImage] = useState(imagenActual);
+    const [, setSelectedImage] = useState(imagenActual);
     const [selectedRelativePath, setSelectedRelativePath] = useState(imagenActual); // Para almacenar la ruta relativa
     const [images, setImages] = useState<ImageData[]>([]);
     const [filteredImages, setFilteredImages] = useState<ImageData[]>([]);

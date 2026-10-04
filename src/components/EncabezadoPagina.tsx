@@ -57,10 +57,6 @@ export const EncabezadoPagina = () => {
             titulo: "Venta al Publico",
             subtitulo: "Catálogo general de herrajes, accesorios y complementos.",
         },
-        "/realidad-aumentada": {
-            titulo: "Realidad Aumentada",
-            subtitulo: "Visualiza una ventana a escala real en tu espacio usando la cámara del teléfono.",
-        },
         "/cliente/disenar": {
             titulo: "Diseñar Ventana",
             subtitulo: "Elige una pauta, ingresa las medidas y elige el color y el vidrio de tu ventana; mírala en realidad aumentada sobre tu pared y agrégala al carrito.",

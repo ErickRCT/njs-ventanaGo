@@ -62,7 +62,7 @@ export const CrearCotizacion = ({ id }: CrearCotizacionProps) => {
   const [altoReforzado, setAltoReforzado] = useState<number>(0);
   const [anchoReforzado, setAnchoReforzado] = useState<number>(0);
   const [isReforzado, setIsReforzado] = useState<boolean>(false);
-  const [idCliente, setIdCliente] = useState<number | null>(0);
+  const [, setIdCliente] = useState<number | null>(0);
   const [cliente, setCliente] = useState<Cliente | null>(null);
   const { width } = useWindowDimensions();
   const productsPerPage = width < 900 ? 2 : 3;
