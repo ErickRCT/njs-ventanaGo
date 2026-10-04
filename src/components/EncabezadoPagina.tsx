@@ -80,7 +80,7 @@ export const EncabezadoPagina = () => {
     };
 
     const paginaActual = paginas[location.pathname] ?? {
-        titulo: "Glass Maipo",
+        titulo: "VentanaGo",
         subtitulo: "",
     };
 

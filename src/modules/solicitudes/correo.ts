@@ -34,7 +34,7 @@ export const abrirCorreoRespuesta = (solicitud: Solicitud) => {
         if (respuesta.total !== null) lineas.push("", `Total: ${formatoPesos(respuesta.total)}`);
         lineas.push("", "Las medidas definitivas se confirman en terreno.");
     }
-    lineas.push("", "Saludos,", "Glass Maipo · VentanaGo");
+    lineas.push("", "Saludos,", "VentanaGo");
 
     const asunto = `Cotización N°${solicitud.numero} ${ETIQUETA_ESTADO[estado].toLowerCase()}`;
     const enlace = `mailto:${solicitud.contacto.email}?subject=${encodeURIComponent(asunto)}&body=${encodeURIComponent(lineas.join("\n"))}`;

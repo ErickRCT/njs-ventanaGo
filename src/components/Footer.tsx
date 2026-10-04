@@ -15,7 +15,7 @@ export const Footer = () => (
         }}
     >
         <Typography variant="caption" sx={{ color: "#718096", fontWeight: 500 }}>
-            © 2026 Glass Maipo, S.A.
+            © 2026 VentanaGo
         </Typography>
 
         <Typography variant="caption" sx={{ color: "#718096", fontWeight: 500 }}>

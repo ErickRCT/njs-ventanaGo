@@ -91,7 +91,7 @@ export const Encabezado: React.FC<EncabezadoProps> = ({ isMobile, onOpenMenu }) 
                             letterSpacing: '0.3px'
                         }}
                     >
-                        Glass Maipo
+                        VentanaGo
                     </Typography>
                 </Box>
 

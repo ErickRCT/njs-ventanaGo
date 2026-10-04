@@ -126,7 +126,7 @@ export const MenuLateral: React.FC<MenuLateralProps> = ({ open, onClose, width =
             <Toolbar sx={{ justifyContent: 'center', py: 1 }}>
                 {!isMobile && (
                     <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#ffffff', letterSpacing: '0.5px' }}>
-                        Glass Maipo
+                        VentanaGo
                     </Typography>
                 )}
             </Toolbar>
